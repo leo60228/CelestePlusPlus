@@ -1,0 +1,5 @@
+7-Summit.bin
+*
+!*.*
+*.d
+!Makefile
