@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         
         Celeste::MapBin map(mapBinStream);
         
-        std::cout << "current package: " << map.package << std::endl;
+        std::cout << "current package: \"" << map.package << "\"" << std::endl;
         std::cout << "correct package: " << correctPackage << std::endl;
         map.package = correctPackage;
         std::cout << "package fixed" << std::endl;
