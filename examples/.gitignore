@@ -4,3 +4,4 @@
 !*/
 *.d
 !Makefile
+.NIX_PATH
