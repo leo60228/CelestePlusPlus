@@ -1,3 +1,5 @@
+#pragma once
+
 #include "encoding.hpp"
 #include <string>
 #include <vector>
