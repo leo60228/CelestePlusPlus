@@ -11,6 +11,10 @@ namespace Celeste {
         while (bytes.find(fh.peek()) != std::string::npos) fh.ignore();
     }
     
+    bool myIsSpace(char byte) {
+        return std::isspace(byte) || byte == '\r' || byte == 0xfe || byte == 0xff || !std::isprint(byte);
+    }
+    
     std::string readLine(std::istream& fh) {
         std::string res;
         
@@ -80,7 +84,7 @@ namespace Celeste {
                 }
             }
             
-            name.erase(remove_if(name.begin(), name.end(), isspace), name.end());
+            name.erase(remove_if(name.begin(), name.end(), myIsSpace), name.end());
             
             newLine = false;
             tabCount = 0;
@@ -108,15 +112,11 @@ namespace Celeste {
                     }
                     
                 } else {
-                    if (byte == '\n') {
-                        newLine = true;
-                    }
+                    if (byte == '\n') newLine = true;
                     
-                    if (fh.peek() == std::char_traits<decltype(byte)>::eof()) {
-                        break;
-                    }
+                    if (fh.peek() == std::char_traits<decltype(byte)>::eof()) break;
                     
-                    value.push_back(byte);
+                    if (std::isprint(byte) || byte == '\n') value.push_back(byte);
                 }
                 
                 if (ignore) fh.ignore();
@@ -134,6 +134,28 @@ namespace Celeste {
         public:
         Dialog(std::istream& fh) {
             while (processEntry(fh)) {}
+        }
+        
+        std::string encode() {
+            std::string res;
+            
+            for (auto e : *this) {
+                res += "\t";
+                res += e.first;
+                res += "=\n\t\t";
+                
+                for (auto byte : e.second) {
+                    if (byte == '\n') {
+                        res += "\n\t\t";
+                    } else {
+                        res.push_back(byte);
+                    }
+                }
+                
+                res += "\n";
+            }
+            
+            return res;
         }
     };
 }
