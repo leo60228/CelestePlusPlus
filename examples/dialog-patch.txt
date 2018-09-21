@@ -30,6 +30,8 @@
 	reflectiondtext2=If you dont goi like this\.\.\.
 	reflectiondtext3=You're wont pul us down to the {# ff4242}fake{# ffffff} Center of the Earth!
 	reflectiondtext4=aasdfasdf!!!!!1111!
+	newline=
+		hi there
 
 
 
